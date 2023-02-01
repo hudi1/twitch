@@ -1,0 +1,24 @@
+package org.tomass.twitch.model {
+
+
+    #Operators
+    #Serializable(1)
+    #Equals(id)
+    #HashCode(id)
+    #ToString(id,channel,user,message,ts,online)
+    #Pojo Chatlog {
+        #PrimaryKey
+        #Index
+        #Attr Integer id // INT(10)
+        #Required
+        #Attr String channel // VARCHAR(255)
+        #Required
+        #Attr String user // VARCHAR(255)
+        #Required
+        #Attr String message // VARCHAR(512)
+        #Required
+        #Attr java.time.LocalDateTime ts // DATETIME(19)
+        #Required
+        #Attr Boolean online // BIT(1)
+    }
+}

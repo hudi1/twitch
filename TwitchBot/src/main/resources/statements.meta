@@ -1,0 +1,53 @@
+
+INSERT_CHATLOG(CRUD,in=Chatlog,out=Chatlog,tab=chatlog)=
+  insert into %%chatlog (%CHANNEL, %USER, %MESSAGE, %TS, %ONLINE)
+  {= values (:id(idsel), :channel, :user, :message, :ts, :online) }
+;
+
+GET_CHATLOG(CRUD,in=Chatlog,out=Chatlog,tab=chatlog)=
+  select %ID @id(id), %CHANNEL @channel, %USER @user, %MESSAGE @message, %TS @ts, %ONLINE @online
+  from %%chatlog
+  {= where
+    {& %ID ::= :id }
+    {& %CHANNEL ::= :channel }
+    {& %USER ::= :user }
+    {& %MESSAGE ::= :message }
+    {& %TS ::= :ts }
+    {& %ONLINE ::= :online }
+  }
+;
+
+UPDATE_CHATLOG(CRUD,in=Chatlog,out=Chatlog,tab=chatlog)=
+  update %%chatlog
+  {= set
+    { ,%CHANNEL = :channel }
+    { ,%USER = :user }
+    { ,%MESSAGE = :message }
+    { ,%TS = :ts }
+    { ,%ONLINE = :online }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+DELETE_CHATLOG(CRUD,in=Chatlog,out=Chatlog,tab=chatlog)=
+  delete from %%chatlog
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_CHATLOG(QRY,in=Chatlog,out=Chatlog,tab=chatlog)=
+  select %ID @id(id), %CHANNEL @channel, %USER @user, %MESSAGE @message, %TS @ts, %ONLINE @online
+  from %%chatlog
+  {= where
+    {& %ID ::= :id }
+    {& UPPER(%CHANNEL) like :+channel }
+    {& UPPER(%USER) like :+user }
+    {& UPPER(%MESSAGE) like :+message }
+    {& %TS ::= :ts }
+    {& %ONLINE ::= :online }
+  }
+  {#ID order by %ID }
+;

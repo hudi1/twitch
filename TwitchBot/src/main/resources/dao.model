@@ -1,0 +1,7 @@
+package org.tomass.twitch.dao {
+
+    #CRUD(org.tomass.twitch.model.Chatlog)
+    #Query(org.tomass.twitch.model.Chatlog)
+    #Dao ChatlogDao {
+    }
+}
